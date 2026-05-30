@@ -14,7 +14,6 @@
             height: 100vh;
             margin: 0;
         }
-
         .card {
             background-color: white;
             padding: 40px 30px;
@@ -31,21 +30,18 @@
             justify-content: center;
             align-items: center;
         }
-
         .title {
             color: #8e44ad;
             font-size: 26px;
             font-weight: bold;
             margin-bottom: 20px;
         }
-
         h2 {
             color: #424242;
             font-size: 22px;
             margin-bottom: 30px;
             line-height: 1.6;
         }
-
         .btn-group {
             display: flex;
             justify-content: center;
@@ -53,7 +49,6 @@
             flex-wrap: wrap;
             width: 100%;
         }
-
         .btn {
             padding: 12px 28px;
             font-size: 18px;
@@ -63,121 +58,19 @@
             font-weight: bold;
             transition: transform 0.2s, background-color 0.2s;
         }
-
         .btn-purple {
             background-color: #9c27b0;
             color: white;
             box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
         }
-
         .btn-red {
             background-color: #e91e63;
             color: white;
             box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
         }
-
         .btn-back {
             background-color: #7f8c8d;
             color: white;
             font-size: 14px;
             padding: 6px 15px;
-            border-radius: 10px;
-            margin-top: 25px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn:active {
-            transform: scale(1.1);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.4s ease-in-out;
-            width: 100%;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card" id="mainCard">
-        </div>
-
-    <script>
-        let historyStack = [];
-
-        function renderStep(htmlContent, saveToHistory = true) {
-            const card = document.getElementById('mainCard');
-            if (saveToHistory && card.innerHTML.trim() !== "") {
-                historyStack.push(card.innerHTML);
-            }
-            card.innerHTML = htmlContent;
-        }
-
-        function goBack() {
-            if (historyStack.length > 0) {
-                const previousContent = historyStack.pop();
-                document.getElementById('mainCard').innerHTML = previousContent;
-            }
-        }
-
-        // قۆناغی یەکەم: دەستپێک بۆ سۆما
-        function showStep1() {
-            historyStack = []; 
-            const html = `
-                <div class="fade-in">
-                    <div class="title">بۆ سۆما خوشکم ❤️</div>
-                    <h2>سۆما منت خۆش دەوێ؟ 🥺</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-purple" onclick="handleLoveAnswer('yes')">بەڵێ</button>
-                        <button class="btn btn-red" onclick="handleLoveAnswer('no')">نەخێر</button>
-                    </div>
-                </div>
-            `;
-            renderStep(html, false);
-        }
-
-        // دوای وڵامی خۆشویستن
-        function handleLoveAnswer(answer) {
-            let text = answer === 'yes' ? "منیش خۆشم دەوێییی سیقۆ 🙂❤️" : "حادزت کردم 🥲💔";
-            const html = `
-                <div class="fade-in">
-                    <div class="title">سۆما خان...</div>
-                    <h2 style="color: #9c27b0; font-size: 24px; font-weight: bold;">${text}</h2>
-                    <hr style="border: 1px dashed #e1bee7; margin: 20px 0;">
-                    <h2>کچەکم لۆ بدینەوە 🥺</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-purple" onclick="handleGirlAnswer('fast')">بەزووترین کات ئەبینمەوە</button>
-                        <button class="btn btn-red" onclick="handleGirlAnswer('not_seen')">نەت دیت</button>
-                    </div>
-                    <button class="btn btn-back" onclick="goBack()">↩️ گەڕانەوە</button>
-                </div>
-            `;
-            renderStep(html);
-        }
-
-        // قۆناغی کۆتایی
-        function handleGirlAnswer(answer) {
-            let finalTitle = answer === 'fast' ? "شازادە کچ ✨" : "ئۆو... 💔";
-            let finalText = answer === 'fast' ? "ئەوە خوشکە نازدارەکەمە 🌸✨" : "خیانەت کار 💔😭";
-            const html = `
-                <div class="fade-in">
-                    <div class="title">${finalTitle}</div>
-                    <h2 style="font-size: 24px; font-weight: bold; color: #333;">${finalText}</h2>
-                    <button class="btn btn-back" onclick="goBack()">↩️ گەڕانەوە</button>
-                </div>
-            `;
-            renderStep(html);
-        }
-
-        // کارپێکردنی یەکەم قۆناغ لە کاتی کردنەوەی لاپەڕەکە
-        showStep1();
-    </script>
-
-</body>
-</html>
+            border
