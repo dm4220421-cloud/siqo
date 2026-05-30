@@ -73,4 +73,115 @@
             color: white;
             font-size: 14px;
             padding: 6px 15px;
-            border
+            border-radius: 10px;
+            margin-top: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:active {
+            transform: scale(1.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+            width: 100%;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard"></div>
+
+    <script>
+        let historyStack = [];
+        // ئایدی تێلیگرامەکەت لێرە جێگیر کراوە بە بێ نیشانەی @
+        const telegramUsername = "Dr_J4f"; 
+
+        function renderStep(htmlContent, saveToHistory = true) {
+            const card = document.getElementById('mainCard');
+            if (saveToHistory && card.innerHTML.trim() !== "") {
+                historyStack.push(card.innerHTML);
+            }
+            card.innerHTML = htmlContent;
+        }
+
+        function goBack() {
+            if (historyStack.length > 0) {
+                const previousContent = historyStack.pop();
+                document.getElementById('mainCard').innerHTML = previousContent;
+            }
+        }
+
+        function showStep1() {
+            historyStack = []; 
+            const html = `
+                <div class="fade-in">
+                    <div class="title">بۆ سۆما خوشکم ❤️</div>
+                    <h2>سۆما منت خۆش دەوێ؟ 🥺</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-purple" onclick="handleLoveAnswer('yes')">بەڵێ</button>
+                        <button class="btn btn-red" onclick="handleLoveAnswer('no')">نەخێر</button>
+                    </div>
+                </div>
+            `;
+            renderStep(html, false);
+        }
+
+        function handleLoveAnswer(answer) {
+            let text = answer === 'yes' ? "منیش خۆشم دەوێییی سیقۆ 🙂❤️" : "حادزت کردم 🥲💔";
+            const html = `
+                <div class="fade-in">
+                    <div class="title">سۆما خان...</div>
+                    <h2 style="color: #9c27b0; font-size: 24px; font-weight: bold;">${text}</h2>
+                    <hr style="border: 1px dashed #e1bee7; margin: 20px 0;">
+                    <h2>کچەکم لۆ بدینەوە 🥺</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-purple" onclick="sendToTelegram('fast')">بەزووترین کات ئەبینمەوە</button>
+                        <button class="btn btn-red" onclick="sendToTelegram('not_seen')">نەت دیت</button>
+                    </div>
+                    <button class="btn btn-back" onclick="goBack()">↩️ گەڕانەوە</button>
+                </div>
+            `;
+            renderStep(html);
+        }
+
+        // لۆژیکی ناردنی نامە بۆ تێلیگرام
+        function sendToTelegram(answer) {
+            let messageText = "";
+            if (answer === 'fast') {
+                messageText = "سڵاو براکەم دیار، من سۆمام 🌸 بەزووترین کات کچەکەت بۆ دەدۆزمەوە و دەبمە خوشکە نازدارەکەت! 🥰✨";
+            } else {
+                messageText = "من خیانەتکارم! 💔 نەم دیت لۆت بدۆزمەوە 🏃‍♂️💨";
+            }
+
+            // دروستکردنی لینکی فەرمی تێلیگرام لەگەڵ دەقی نامەکە
+            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodeURIComponent(messageText)}`;
+            
+            let finalTitle = answer === 'fast' ? "شازادە کچ ✨" : "ئۆو... 💔";
+            let finalText = answer === 'fast' ? "ئەوە خوشکە نازدارەکەمە 🌸✨" : "خیانەت کار 💔😭";
+            
+            const html = `
+                <div class="fade-in">
+                    <div class="title">${finalTitle}</div>
+                    <h2 style="font-size: 24px; font-weight: bold; color: #333;">${finalText}</h2>
+                    <p style="color: #666; font-size: 14px;">ئەپی تێلیگرامەکەت بۆ دەکرێتەوە بۆ ناردنی وەڵامەکە...</p>
+                    <button class="btn btn-back" onclick="goBack()">↩️ گەڕانەوە</button>
+                </div>
+            `;
+            renderStep(html);
+
+            // ناردنی بەکارهێنەر بۆ تێلیگرام دوای نیو چرکە
+            setTimeout(() => {
+                window.location.href = telegramUrl;
+            }, 500);
+        }
+
+        showStep1();
+    </script>
+
+</body>
+</html>
